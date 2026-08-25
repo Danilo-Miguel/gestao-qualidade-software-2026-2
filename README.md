@@ -1,0 +1,1 @@
+# gestao-qualidade-software-2026-2
