@@ -1,4 +1,0 @@
-flask
-pytest
-requests
-prometheus-flask-exporter
