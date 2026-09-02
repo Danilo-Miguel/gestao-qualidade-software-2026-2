@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on: 
+  push:
+    branches: [aula-25/08]  
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-pyhton@v5
+        with:
+          python-version: '3.14.3'    
+
+      - name: instalar as dependências
+        run: pip install -r requirements.txt   
+        
+      - name: Subir o servidor em segundo plano
+        run: |
+          python app.py &
+          sleep 2 
+          
+      - name: Verificar saúde do servidor
+        run: |
+          response=$(curl -s http://localhost:5000/health)
+          echo "Resposta recebida: $response"
+          echo "$response" | grep - q '"status":"ok"' || (echo "Servidor não respondeu corretamente" && exit 1)
+
+      - name: Derrubar o servidor
+        run: pkill -f app.py || true  
+
+          
