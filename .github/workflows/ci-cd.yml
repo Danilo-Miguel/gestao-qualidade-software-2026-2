@@ -29,7 +29,7 @@ jobs:
         run: |
           response=$(curl -s http://localhost:5000/health)
           echo "Resposta recebida: $response"
-          echo "$response" | grep - q '"status":"ok"' || (echo "Servidor não respondeu corretamente" && exit 1)
+          echo "$response" | grep -q '"status":"ok"' || (echo "Servidor não respondeu corretamente" && exit 1)
 
       - name: Derrubar o servidor
         run: pkill -f app.py || true  
