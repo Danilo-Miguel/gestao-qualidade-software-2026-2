@@ -19,6 +19,9 @@ jobs:
 
       - name: instalar as dependências
         run: pip install -r requirements.txt   
+
+      - name: Rodar testes automatizados
+        run: pytest tests/      
         
       - name: Subir o servidor em segundo plano
         run: |
